@@ -1,0 +1,71 @@
+Options +FollowSymLinks
+
+### Turn on URL rewriting
+RewriteEngine On
+#RewriteBase /
+#AllowOverride all
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php56” package as the default “PHP” programming language.
+#<IfModule mime_module>
+#  AddType application/x-httpd-ea-php56 .php .php5 .phtml
+#</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+## Allow any files or directories that exist to be displayed directly
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+#RewriteCond %{HTTP_HOST} ^http://footballelo.onesmartstar.com/$
+#RewriteCond %{HTTP_HOST} ^https://footballelo.onesmartstar.com/$
+RewriteCond %{HTTP_HOST} ^footballelo$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.footballelo/$
+RewriteCond %{REQUEST_URI} !/public/
+RewriteRule (.*) /public/$1 [L]
+
+# Laravel Rewrite Rule witjour apache :)
+#RewriteRule ^ server.php [L]
+
+## Protect hidden files from being viewed
+##<Files .*>
+##	Order Deny,Allow
+##	Deny From All
+##</Files>
+
+##Options -Indexes
+###AddType application/x-httpd-php .asp, .aspx
+AddDefaultCharset UTF-8
+#
+### Remove public in URL
+##<IfModule mod_rewrite.c>
+##    RewriteEngine On
+##    RewriteRule ^(.*)$ public/$1 [L]
+##</IfModule>
+#
+##RewriteCond %{REQUEST_URI} !^public
+##RewriteRule ^(.*)$ public/$1 [L]
+
+## Rewrite all other URLs to index.php/URL
+#RewriteRule ^ index.php [L]
+
+
+# Laravel acces on root folder
+#<IfModule mod_rewrite.c>
+#    <IfModule mod_negotiation.c>
+#        Options -MultiViews
+#    </IfModule>
+#
+#    RewriteEngine On
+#
+#    # Redirect Trailing Slashes If Not A Folder...
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteRule ^(.*)/$ /$1 [L,R=301]
+#
+#    # Handle Front Controller...
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule ^ index.php [L]
+#
+#    # Handle Authorization Header
+#    RewriteCond %{HTTP:Authorization} .
+#    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#</IfModule>
